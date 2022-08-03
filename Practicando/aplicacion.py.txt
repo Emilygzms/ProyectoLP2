@@ -1,0 +1,107 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun  6 18:28:27 2022
+
+@author: Emily
+"""
+
+
+import os
+
+
+def agregar():
+    print("* AGREGAR CONTENIDO A UN ARCHIVO *")
+    archivo = input("Quiero agregar contenido al archivo: ")
+    contenido = input("El contenido adicional del archivo será: ")
+    agregar_contenido_archivo(archivo, contenido)
+    
+def listar():
+    print("* MOSTRAR CONTENIDO DE UN ARCHIVO*")
+    archivo = input("Quiero mostrar el contenido del archivo: ")
+    print(leer_archivo(archivo))
+
+def salir():
+    print("Gracias... Vuelva pronto")  
+
+def error():
+    print("Opción incorrecta")
+    
+def menu():
+    print("* MENU PRINCIPAL *")
+    print("1. Listar")
+    print("2. Agregar")
+    print("5. Salir")
+    
+        
+def leer_archivo(nombre):
+    archivo = open(nombre,"rt",encoding='utf8')
+    contenido = archivo.read()
+    return contenido
+
+def crear_archivo(nombre, contenido):
+    archivo = open(nombre,"wt")
+    archivo.write(contenido)
+    archivo.close()
+    
+def eliminar_archivo(nombre):
+    os.remove(nombre)
+
+def agregar_contenido_archivo(nombre, contenido):
+    archivo = open(nombre,"at")
+    archivo.write("\n" + contenido)
+    archivo.close()
+    
+usuario = leer_archivo('usuarios.txt')
+contraseña = leer_archivo('claves.txt')
+
+contador=1
+def validar():
+    dato1 = input('ingrese usuario: ')
+    dato2 = input('ingrese la clave: ')
+    if usuario == dato1 and contraseña == dato2:
+         print("bienvenido al programa")
+         return menu()         
+    else:
+        while contador <= 3:
+            print("vuelva a ingresar los datos")
+            contador == contador+1
+            
+            if contador <= 3:
+                return validar()
+            else:
+                print("\n***Ha sobrepasado el número de intentos. BYE :D...***\n")
+                exit()
+        
+validar()
+
+opcion = 1
+while opcion!=3:
+    menu()
+    opcion = int(input("Seleccione una opción [1-3]: "))
+    if opcion ==1:
+        listar()
+    elif opcion == 2:
+        agregar()
+    elif opcion == 3:
+        salir()
+    else:
+        error()
+        
+nombre = leer_archivo('nombre.txt')
+precio = leer_archivo('precio.txt')
+codigo = leer_archivo('codigo.txt')
+
+class Producto:
+    def __init__(self, codigo, nombre, precio):
+        self.codigo = codigo
+        self.nombre = nombre
+        self.precio = precio
+        
+    def mostrar_datos_producto(self):
+        print(f"Codigo:{self.codigo}")
+        print(f"Nombre:{self.nombre}")
+        print(f"Precio:{self.precio}")
+        
+p1 = Producto(codigo, nombre, precio)
+p1.mostrar_datos_producto()
+        
